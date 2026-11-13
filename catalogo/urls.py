@@ -1,5 +1,6 @@
-from django.urlsimportpath
-from .importviews
+from django.contrib import admin
+from django.urls import path
+
 urlpatterns = [
-path("",views.inicio,name="catalogo_inicio"),
-path("ofertas/",views.ofertas, name="catalogo_ofertas"),
+    path('admin/', admin.site.urls),
+]

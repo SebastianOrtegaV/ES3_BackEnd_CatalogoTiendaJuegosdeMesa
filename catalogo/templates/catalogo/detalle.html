@@ -23,5 +23,20 @@
         <p><strong>Descripción:</strong></p>
         <p>{{ juego.descripcion|default:"Sin descripción." }}</p>
     </div>
+        <div class="pedido">
+        <h2>Haz tu pedido</h2>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for campo in form %}
+            <p>
+                {{ campo.label_tag }}
+                {{ campo }}
+                {{ campo.errors }}
+            </p>
+            {% endfor %}
+            <button type="submit">Hacer pedido</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

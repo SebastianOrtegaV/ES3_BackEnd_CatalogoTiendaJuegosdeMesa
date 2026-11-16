@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from .models import Juego, Categoria
+from .forms import PedidoForm
 
 def lista_juegos(request):
     categoria_id = request.GET.get('categoria')
@@ -24,4 +26,16 @@ def detalle_juego(request, pk):
     juego = get_object_or_404(
         Juego.objects.select_related('categoria'),
         pk=pk, disponible=True)
-    return render(request, 'catalogo/detalle.html', {'juego': juego})
+
+    if request.method == 'POST':
+        form = PedidoForm(request.POST)
+        if form.is_valid():
+            pedido = form.save(commit=False)
+            pedido.juego = juego
+            pedido.save()
+            messages.success(request, 'Pedido registrado.')
+            return redirect('catalogo:detalle_juego', pk=juego.pk)
+    else:
+        form = PedidoForm()
+
+    return render(request, 'catalogo/detalle.html', {'juego': juego, 'form': form})

@@ -21,5 +21,7 @@ def lista_juegos(request):
     return render(request, 'catalogo/index.html', context)
 
 def detalle_juego(request, pk):
-    juego = get_object_or_404(Juego, pk=pk)
+    juego = get_object_or_404(
+        Juego.objects.select_related('categoria'),
+        pk=pk, disponible=True)
     return render(request, 'catalogo/detalle.html', {'juego': juego})

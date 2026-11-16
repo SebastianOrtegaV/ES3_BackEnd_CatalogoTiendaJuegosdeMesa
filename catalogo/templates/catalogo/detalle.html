@@ -1,43 +1,27 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ juego.nombre }} - Detalle</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 40px; background: #f4f4f9; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .btn-volver { display: inline-block; margin-bottom: 20px; text-decoration: none; color: #3498db; font-weight: bold; }
-        .btn-volver:hover { text-decoration: underline; }
-        .imagen-container { float: left; margin-right: 25px; margin-bottom: 15px; }
-        img { max-width: 300px; height: auto; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .info { overflow: hidden; }
-        .precio { color: #27ae60; font-size: 1.5em; font-weight: bold; }
-        .descripcion { margin-top: 20px; line-height: 1.6; color: #555; clear: both; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <a href="{% url 'catalogo:lista_juegos' %}" class="btn-volver">← Volver al Catálogo</a>
-        
-        <div class="imagen-container">
-            {% if juego.imagen %}
-                <img src="{{ juego.imagen.url }}" alt="{{ juego.nombre }}">
-            {% else %}
-                <img src="https://via.placeholder.com/300x300?text=Sin+Imagen" alt="Sin imagen">
-            {% endif %}
-        </div>
+{% extends "base.html" %}
+{% block titulo %}{{ juego.nombre }} - Detalle{% endblock %}
+{% block contenido %}
+<div class="container">
+    <a href="{% url 'catalogo:lista_juegos' %}" class="btn-volver">← Volver al Catálogo</a>
 
-        <div class="info">
-            <h1>{{ juego.nombre }}</h1>
-            <p>Categoría: <strong>{{ juego.categoria.nombre }}</strong></p>
-            <p class="precio">$ {{ juego.precio }}</p>
-            <p>Stock disponible: <strong>{{ juego.stock }} unidades</strong></p>
-        </div>
-
-        <div class="descripcion">
-            <p><strong>Descripción:</strong></p>
-            <p>{{ juego.descripcion|default:"Sin descripción detallada por el momento." }}</p>
-        </div>
+    <div class="imagen-container">
+        {% if juego.imagen %}
+            <img src="{{ juego.imagen.url }}" alt="{{ juego.nombre }}">
+        {% endif %}
     </div>
-</body>
-</html>
+
+    <div class="info">
+        <h1>{{ juego.nombre }}</h1>
+        <p>Categoría: <strong>{{ juego.categoria.nombre }}</strong></p>
+        <p class="precio">{{ juego.precio_clp }}</p>
+        <p>Jugadores: <strong>{{ juego.jugadores }}</strong></p>
+        <p>Edad mínima: <strong>{{ juego.edad_minima }} años</strong></p>
+        <p>Stock disponible: <strong>{{ juego.stock }} unidades</strong></p>
+    </div>
+
+    <div class="descripcion">
+        <p><strong>Descripción:</strong></p>
+        <p>{{ juego.descripcion|default:"Sin descripción." }}</p>
+    </div>
+</div>
+{% endblock %}

@@ -15,8 +15,7 @@ class JuegoAdmin(admin.ModelAdmin):
 
     @admin.display(description='Precio', ordering='precio')
     def precio_formateado(self, obj):
-        return f"$ {obj.precio:,}".replace(",", ".")
-
+        return obj.precio_clp
 @admin.register(Pedido)
 class PedidoAdmin(admin.ModelAdmin):
     list_display = ('codigo', 'juego', 'nombre', 'cantidad', 'fecha')

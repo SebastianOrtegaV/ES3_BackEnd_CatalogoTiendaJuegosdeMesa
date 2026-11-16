@@ -5,19 +5,18 @@ def lista_juegos(request):
     categoria_id = request.GET.get('categoria')
     busqueda = request.GET.get('q', '')
 
-    juegos = Juego.objects.all()
-    
+    juegos = Juego.objects.select_related('categoria').filter(disponible=True)
+
     if categoria_id:
         juegos = juegos.filter(categoria_id=categoria_id)
     if busqueda:
         juegos = juegos.filter(nombre__icontains=busqueda)
 
-    categorias = Categoria.objects.all()
-
     context = {
         'juegos': juegos,
-        'categorias': categorias,
+        'categorias': Categoria.objects.all(),
         'busqueda_actual': busqueda,
+        'categoria_actual': categoria_id,
     }
     return render(request, 'catalogo/index.html', context)
 

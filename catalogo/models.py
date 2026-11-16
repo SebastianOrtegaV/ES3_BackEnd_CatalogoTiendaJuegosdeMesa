@@ -24,6 +24,9 @@ class Juego(models.Model):
     )
     nombre = models.CharField(max_length=120, verbose_name="Nombre del juego")
     precio = models.PositiveIntegerField(verbose_name="Precio en pesos ($)")
+    descripcion = models.TextField(blank=True, verbose_name="Descripción")
+    jugadores = models.CharField(max_length=20, default="2 a 4", verbose_name="Cantidad de jugadores")
+    edad_minima = models.PositiveSmallIntegerField(default=8, verbose_name="Edad mínima recomendada")
     stock = models.PositiveIntegerField(default=0, verbose_name="Stock en bodega")
     disponible = models.BooleanField(default=True, verbose_name="Disponible para la venta")
     imagen = models.ImageField(

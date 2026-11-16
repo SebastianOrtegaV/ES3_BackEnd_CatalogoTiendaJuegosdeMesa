@@ -18,6 +18,12 @@ class Juego(models.Model):
     precio = models.PositiveIntegerField(verbose_name="Precio en pesos ($)")
     stock = models.PositiveIntegerField(default=0, verbose_name="Stock en bodega")
     disponible = models.BooleanField(default=True, verbose_name="Disponible para la venta")
+    imagen = models.ImageField(
+        upload_to='juegos/', 
+        blank=True, 
+        null=True, 
+        verbose_name="Imagen de la caja"
+    )
 
     def __str__(self):
         return f"{self.nombre} (${self.precio})"

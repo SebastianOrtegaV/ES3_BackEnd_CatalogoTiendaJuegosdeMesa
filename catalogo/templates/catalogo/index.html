@@ -27,6 +27,9 @@
             </a>
             <p>Categoría: <strong>{{ juego.categoria.nombre }}</strong></p>
             <p class="precio">{{ juego.precio_clp }}</p>
+            {% if juego.agotado %}
+                <p><strong style="color:#c0392b;">Agotado</strong></p>
+            {% endif %}            
         </div>
     {% empty %}
         <p style="grid-column: 1/-1; text-align: center;">No hay juegos disponibles en este momento.</p>

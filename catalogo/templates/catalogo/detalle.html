@@ -12,6 +12,9 @@
 
     <div class="info">
         <h1>{{ juego.nombre }}</h1>
+        {% if juego.agotado %}
+            <p><strong style="color:#c0392b;">Agotado</strong></p>
+        {% endif %}        
         <p>Categoría: <strong>{{ juego.categoria.nombre }}</strong></p>
         <p class="precio">{{ juego.precio_clp }}</p>
         <p>Jugadores: <strong>{{ juego.jugadores }}</strong></p>
@@ -23,20 +26,25 @@
         <p><strong>Descripción:</strong></p>
         <p>{{ juego.descripcion|default:"Sin descripción." }}</p>
     </div>
-        <div class="pedido">
+    <div class="pedido">
         <h2>Haz tu pedido</h2>
-        <form method="post" novalidate>
-            {% csrf_token %}
-            {{ form.non_field_errors }}
-            {% for campo in form %}
-            <p>
-                {{ campo.label_tag }}
-                {{ campo }}
-                {{ campo.errors }}
-            </p>
-            {% endfor %}
-            <button type="submit">Hacer pedido</button>
-        </form>
+        {% if juego.agotado %}
+            <p><strong>Agotado:</strong> por ahora no se pueden hacer pedidos de este juego.</p>
+        {% else %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                {% for campo in form %}
+                <p>
+                    {{ campo.label_tag }}
+                    {{ campo }}
+                    {{ campo.errors }}
+                </p>
+                {% endfor %}
+                <button type="submit">Hacer pedido</button>
+            </form>
+        {% endif %}
+    </div>
     </div>
 </div>
 {% endblock %}

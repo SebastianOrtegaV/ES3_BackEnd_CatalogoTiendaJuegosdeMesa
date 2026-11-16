@@ -28,14 +28,16 @@ def detalle_juego(request, pk):
         pk=pk, disponible=True)
 
     if request.method == 'POST':
-        form = PedidoForm(request.POST)
+        form = PedidoForm(request.POST, juego=juego)
         if form.is_valid():
             pedido = form.save(commit=False)
             pedido.juego = juego
             pedido.save()
+            juego.stock -= pedido.cantidad
+            juego.save()
             messages.success(request, 'Pedido registrado.')
             return redirect('catalogo:detalle_juego', pk=juego.pk)
     else:
-        form = PedidoForm()
+        form = PedidoForm(juego=juego)
 
     return render(request, 'catalogo/detalle.html', {'juego': juego, 'form': form})

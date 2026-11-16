@@ -40,7 +40,11 @@ class Juego(models.Model):
     @property
     def precio_clp(self):
         return formato_pesos(self.precio)
-
+    
+    @property
+    def agotado(self):
+        return self.stock <= 0
+    
 class Pedido(models.Model):
     juego = models.ForeignKey(
         Juego,

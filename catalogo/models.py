@@ -32,8 +32,8 @@ class Juego(models.Model):
         null=True, 
         verbose_name="Imagen de la caja"
     )
-
-
+    def __str__(self):
+        return self.nombre
     @property
     def precio_clp(self):
         return formato_pesos(self.precio)

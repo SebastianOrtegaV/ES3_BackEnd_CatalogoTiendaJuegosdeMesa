@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Categoria, Juego
+from .models import Categoria, Juego, Pedido
 
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
@@ -16,3 +16,10 @@ class JuegoAdmin(admin.ModelAdmin):
     @admin.display(description='Precio', ordering='precio')
     def precio_formateado(self, obj):
         return f"$ {obj.precio:,}".replace(",", ".")
+
+@admin.register(Pedido)
+class PedidoAdmin(admin.ModelAdmin):
+    list_display = ('codigo', 'juego', 'nombre', 'cantidad', 'fecha')
+    list_filter = ('juego',)
+    search_fields = ('nombre', 'email')
+    readonly_fields = ('codigo', 'fecha')

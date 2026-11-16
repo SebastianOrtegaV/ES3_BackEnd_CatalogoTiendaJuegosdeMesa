@@ -5,5 +5,6 @@ app_name = 'catalogo'
 
 urlpatterns = [
     path('', views.lista_juegos, name='lista_juegos'),
-    path('juego/<int:pk>/', views.detalle_juego, name='detalle_juego'), 
+    path('juego/<int:pk>/', views.detalle_juego, name='detalle_juego'),
+    path('comprobante/<str:codigo>/', views.comprobante, name='comprobante'),
 ]

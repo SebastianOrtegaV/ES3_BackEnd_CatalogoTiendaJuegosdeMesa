@@ -64,3 +64,10 @@ class Pedido(models.Model):
 
     def __str__(self):
         return f"{self.codigo} - {self.nombre}"
+    @property
+    def total(self):
+        return self.cantidad * self.juego.precio
+
+    @property
+    def total_clp(self):
+        return formato_pesos(self.total)

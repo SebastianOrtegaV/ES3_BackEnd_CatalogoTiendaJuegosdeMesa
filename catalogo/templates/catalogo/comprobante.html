@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}Comprobante {{ pedido.codigo }}{% endblock %}
+{% block contenido %}
+<div class="container">
+    <h1>Comprobante de pedido</h1>
+    <ul>
+        <li>Código: <strong>{{ pedido.codigo }}</strong></li>
+        <li>Juego: {{ pedido.juego.nombre }}</li>
+        <li>Nombre: {{ pedido.nombre }}</li>
+        <li>Cantidad: {{ pedido.cantidad }}</li>
+        <li>Total: <strong>{{ pedido.total_clp }}</strong></li>
+        <li>Fecha y hora: {{ pedido.fecha }}</li>
+    </ul>
+    <p>Retiro en tienda.</p>
+    <a href="{% url 'catalogo:lista_juegos' %}" class="btn-volver">← Volver al catálogo</a>
+</div>
+{% endblock %}
